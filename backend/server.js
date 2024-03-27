@@ -8,7 +8,6 @@ const { notFound, errorHandler} = require("./middleware/errorMiddleware")
 const path = require("path");
 
 const app = express();
-
 dotenv.config();
 connectDB();
 
@@ -22,7 +21,7 @@ app.use('/api/user', userRoutes)
 app.use('/api/chat', chatRoutes)
 app.use('/api/message', messageRoutes)
 
-//---------------------Deployment---------------------
+//---------------------Deployment---------------------//
 
 const __dirname1 = path.resolve();
 if(process.env.NODE_ENV === 'production') {
@@ -36,7 +35,7 @@ if(process.env.NODE_ENV === 'production') {
     }) 
 }
 
-//---------------------Deployment---------------------
+//---------------------Deployment---------------------//
 
 app.use(notFound)
 app.use(errorHandler)
@@ -54,7 +53,6 @@ const io = require("socket.io")(server, {
 
 io.on("connection", (socket) => {
     console.log("Connected to Socket.io");
-
     socket.on("setup", (userData) => {
         socket.join(userData._id);
         socket.emit("Connected")
@@ -64,7 +62,6 @@ io.on("connection", (socket) => {
         socket.join(room);
         console.log("User joined room: " + room)
     })
-
     socket.on("typing", (room) => socket.in(room).emit("typing"));
     socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
 
